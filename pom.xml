@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>Demo</groupId>
+  <artifactId>Demo</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>17</release>
+        </configuration>
+      </plugin>
+       <plugin>
+        <groupId>org.openrewrite.maven</groupId>
+        <artifactId>rewrite-maven-plugin</artifactId>
+        <version>4.39.0</version>
+        <configuration>
+          <activeRecipes>
+            <recipe>org.openrewrite.java.Spring</recipe>
+          </activeRecipes>
+          <activeStyles>
+            <!-- This style is made up for sake of example. It isn't packaged with OpenRewrite -->
+            <style>com.yourorg.SpringStyle</style>
+          </activeStyles>
+          <!-- These are default values, shown for example. It isn't necessary to supply these values manually: -->
+          <configLocation>${maven.multiModuleProjectDirectory}/rewrite.yml</configLocation>
+          <failOnDryRunResults>false</failOnDryRunResults>
+          <exclusions>
+            <exclude>*/some/irrelevant/or/expensive/directory/**</exclude>
+          </exclusions>
+          <plainTextMasks>
+	    <plainTextMask>**/.txt</plainTextMask>
+	  </plainTextMasks>
+        </configuration>
+        <dependencies>
+          <!-- This module is made up for sake of example. It isn't packaged with OpenRewrite -->
+          <dependency>
+            <groupId>com.yourorg.recipes</groupId>
+            <artifactId>your-recipes</artifactId>
+            <version>1.1.0</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+</project>
